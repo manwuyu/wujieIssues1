@@ -1,14 +1,14 @@
 import { HashRouter as Router, Route, Routes, NavLink, Navigate, useLocation, useNavigate } from "react-router-dom";
 import WujieReact from "wujie-react";
 import React, { useState } from "react";
-import Home from "./pages/Home";
-import React16 from "./pages/React16";
+// import Home from "./pages/Home";
+// import React16 from "./pages/React16";
 import React17 from "./pages/React17";
-import Vue2 from "./pages/Vue2";
-import Vue3 from "./pages/Vue3";
-import Vite from "./pages/Vite";
-import Angular12 from "./pages/Angular12";
-import All from "./pages/All";
+// import Vue2 from "./pages/Vue2";
+// import Vue3 from "./pages/Vue3";
+// import Vite from "./pages/Vite";
+// import Angular12 from "./pages/Angular12";
+// import All from "./pages/All";
 import Button from "antd/es/button";
 import { UnorderedListOutlined, CaretUpOutlined } from "@ant-design/icons";
 
