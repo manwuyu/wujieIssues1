@@ -45,20 +45,7 @@ setupApp({
   attrs,
   exec: true,
   alive: true,
-  plugins:{
-    jsExcludes:[/\.baidu/],
-    // 排除子应用的这个脚本不加载，防止报错
-    jsIgnores: [/\.baidu/],
-    jsBeforeLoaders: [],
-
-    cssExcludes:[/\.baidu/],
-    cssIgnores: [/\.baidu/],
-    cssBeforeLoaders: [
-      // {
-      //   src: '//api.map.baidu.com/res/webgl/10/bmap.css '
-      // }
-    ]
-  },
+  plugins,
   fetch: credentialsFetch,
   degrade,
   ...lifecycles,

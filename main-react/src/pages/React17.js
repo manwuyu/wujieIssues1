@@ -24,6 +24,21 @@ export default function React17() {
       url={react17Url}
       sync={!path}
       props={props}
+      plugins={{
+        jsBeforeLoaders: [
+          { src: "http://xxxx.js" },
+          {
+            content: 'console.log("test")' 
+          },
+          {
+            callback(appWindow) {
+              console.log("js-before-loader-callback", appWindow.__WUJIE.id);
+            },
+          },
+        ],
+        cssBeforeLoaders: [
+        ]
+      }}
     ></WujieReact>
   );
 }

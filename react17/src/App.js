@@ -13,8 +13,8 @@ import Dialog from "./Dialog";
 import Location from "./Location";
 import Communication from "./Communication";
 import State from "./State";
-import Tag from "antd/es/tag";
-import Button from "antd/es/button";
+// import Tag from "antd/es/tag";
+// import Button from "antd/es/button";
 import "antd/es/tag/style/css";
 import "antd/es/button/style/css";
 import "antd/es/modal/style/css";
@@ -27,9 +27,14 @@ const basename = process.env.NODE_ENV === "production" ? "/demo-react17/" : "";
 
 const Home = () => (
   <div>
-    <h2>问题请看控制台</h2>
+    <h2>bmapgl控制台报错 功能异常</h2>
     <div
-      id="allmap"
+      id="bmapgl"
+      style={{ width: 300, height: 300, margin: "0 auto" }}
+    ></div>
+    <h2>bmapv3控制台报错 但功能貌似好的</h2>
+    <div
+      id="bmapv3"
       style={{ width: 300, height: 300, margin: "0 auto" }}
     ></div>
   </div>
@@ -67,16 +72,15 @@ function App() {
         if (window.BGLMap) {
           resolve();
         } else {
-          $("<link>")
-            .attr({
-              rel: "stylesheet",
-              type: "text/css",
-              href: `//api.map.baidu.com/res/webgl/10/bmap.css`,
-            })
-            .appendTo("head");
           $.getScript(
-            `//api.map.baidu.com/getscript?type=webgl&v=1.0&ak=1XjLLEhZhQNUzd93EjU5nOGQ`,
-            () => {
+            `//api.map.baidu.com/api?type=webgl&v=1.0&ak=zmVwTKkuEXmcbmEtznL6Ip4EMspC2DWH&callback=initBmapGl`,
+            (res) => {
+              resolve();
+            }
+          );
+          $.getScript(
+            `//api.map.baidu.com/api?v=2.0&ak=zmVwTKkuEXmcbmEtznL6Ip4EMspC2DWH&callback=initBmapv3`,
+            (res) => {
               resolve();
             }
           );
@@ -84,12 +88,25 @@ function App() {
       }),
     ]);
     loadMapComplete.current.then(() => {
-      console.log("=====地图组件加载成功开始执行其他逻辑==========");
-      const map = new window.BMapGL.Map("allmap");
-      map.centerAndZoom(new window.BMapGL.Point(116.28019, 40.049191), 19); // 初始化地图,设置中心点坐标和地图级别
-      map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
-      map.setHeading(64.5);
-      map.setTilt(73);
+      window.initBmapGl = ()=>{
+          const bmapgl = new window.BMapGL.Map("bmapgl");
+          bmapgl.centerAndZoom(new window.BMapGL.Point(116.28019, 40.049191), 19); // 初始化地图,设置中心点坐标和地图级别
+          bmapgl.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+          bmapgl.setHeading(64.5);
+          bmapgl.setTilt(73);
+      }
+      window.initBmapv3 = () => {
+        var bmapv3 = new window.BMap.Map("bmapv3"); // 创建Map实例
+        bmapv3.centerAndZoom(new window.BMap.Point(116.404, 39.915), 11); // 初始化地图,设置中心点坐标和地图级别
+        //添加地图类型控件
+        bmapv3.addControl(
+          new window.BMap.MapTypeControl({
+            mapTypes: [window.BMAP_NORMAL_MAP, window.BMAP_HYBRID_MAP],
+          })
+        );
+        bmapv3.setCurrentCity("北京"); // 设置地图显示的城市 此项是必须设置的
+        bmapv3.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+      };
     });
   });
   return (
